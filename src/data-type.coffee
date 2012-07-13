@@ -245,8 +245,13 @@ TYPE =
           buffer.writeString(parameter.value, 'ascii')
           # PLP_TERMINATOR (no more chunks).
           buffer.writeUInt32LE(0)
+      else if typeof(parameter.value) == 'string'
+        buffer.writeUInt16LE(length)
+        buffer.writeString(parameter.value, 'ascii')
       else
+        parameter.value == null
         buffer.writeUInt16LE(NULL)
+
   0xAD:
     type: 'BIGBinary'
     name: 'Binary'
@@ -303,7 +308,11 @@ TYPE =
           buffer.writeString(parameter.value, 'ucs2')
           # PLP_TERMINATOR (no more chunks).
           buffer.writeUInt32LE(0)
+      else if typeof(parameter.value) == 'string'
+        buffer.writeUInt16LE(length)
+        buffer.writeString(parameter.value, 'ascii')
       else
+        parameter.value == null
         buffer.writeUInt16LE(NULL)
   0xEF:
     type: 'NCHAR'
